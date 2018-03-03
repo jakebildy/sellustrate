@@ -30,8 +30,8 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
         setLoading(false);
 
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(this);
+       // Button button = findViewById(R.id.button);
+        //button.setOnClickListener(this);
 
         LinearLayout emojiLayout = findViewById(R.id.layout);
         ScaleAnimation expandEmoji = new ScaleAnimation(1,1.5f,1,1.5f);
@@ -39,6 +39,53 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         expandEmoji.setFillAfter(true);
         expandEmoji.setFillEnabled(true);
         emojiLayout.getChildAt(0).startAnimation(expandEmoji);
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        this.gdt.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    private final GestureDetector gdt = new GestureDetector((new GestureListener()));
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener
+    {
+
+        private final int SWIPE_MIN_DISTANCE = 120;
+        private final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+          @Override
+         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+          {
+              if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY){
+                  //right to left
+                  if (CURRENT_QUALITY < 9)
+                      CURRENT_QUALITY++;
+                  else
+                      CURRENT_QUALITY = 0;;
+
+                  swipeEmoji(1);
+
+                  updateDescription();
+                  return true;
+              }
+           //   if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY){
+                  //left to right
+              //  if (CURRENT_QUALITY > 0)
+              //        CURRENT_QUALITY--;
+              //    else
+               //       CURRENT_QUALITY = 9;;
+
+              //    swipeEmoji(-1);
+
+             //     updateDescription();
+             //     return true;
+         //     }
+            return false;
+         }
     }
 
     public void setLoading(boolean b)
@@ -82,8 +129,14 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         expandEmoji.setFillEnabled(true);
 
         emojiLayout.getChildAt(CURRENT_QUALITY*2).startAnimation(expandEmoji);
-        if (CURRENT_QUALITY>0)
-        emojiLayout.getChildAt(CURRENT_QUALITY*2-2).startAnimation(popEmoji);
+
+            if (dir > 0)
+                if (CURRENT_QUALITY>0)
+                emojiLayout.getChildAt(CURRENT_QUALITY*2-2).startAnimation(popEmoji);
+          //  else
+            //    if (CURRENT_QUALITY<9){
+             //   emojiLayout.getChildAt(CURRENT_QUALITY*2+2).startAnimation(popEmoji);
+             //   emojiLayout.getChildAt(CURRENT_QUALITY*2-2).startAnimation(popEmoji);}
     }
 
     public void initGears()
@@ -194,4 +247,6 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
             description.setText(R.string.q10);
         }
     }
+
+
 }

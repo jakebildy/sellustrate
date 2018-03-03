@@ -97,6 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="next"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -297,7 +298,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_weight="1"
-            app:srcCompat="@drawable/emoji_1f648"
+            app:srcCompat="@drawable/emoji_1f64a"
             tools:layout_editor_absoluteX="431dp"
             tools:layout_editor_absoluteY="325dp" />
 
@@ -360,6 +361,17 @@
             tools:layout_editor_absoluteY="325dp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/submit"
+        android:layout_width="81dp"
+        android:layout_height="99dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476"
+        app:srcCompat="@drawable/submit" />
 
 
 </android.support.constraint.ConstraintLayout>

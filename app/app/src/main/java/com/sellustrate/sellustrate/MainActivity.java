@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button buttonNew = findViewById(R.id.buttonNew);
 
         TranslateAnimation swipeRight = new TranslateAnimation(0.0f,850.0f,0.0f,0.0f);
-        swipeRight.setDuration(6000);
+        swipeRight.setDuration(3000);
         swipeRight.setFillAfter(true);
         swipeRight.setFillEnabled(true);
 
