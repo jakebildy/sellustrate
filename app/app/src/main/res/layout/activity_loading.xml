@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sellustrate.sellustrate.MainActivity">
+    tools:context="com.sellustrate.sellustrate.LoadingActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,11 +37,10 @@
         app:srcCompat="@drawable/sellustrate_logo_blank" />
 
     <Button
-        android:id="@+id/buttonNew"
+        android:id="@+id/button"
         android:layout_width="186dp"
         android:layout_height="128dp"
         android:background="@drawable/photo_button"
-        android:onClick="doSomething"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toStartOf="@+id/imageView6"
         app:layout_constraintHorizontal_bias="1.0"
@@ -59,56 +58,12 @@
         app:layout_constraintVertical_bias="0.693"
         app:srcCompat="@drawable/powered_by" />
 
-    <EditText
-        android:id="@+id/password"
-        style="@style/Base.ThemeOverlay.AppCompat.Dark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="GITPUMPED"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="demo@fakeemail.com"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.399" />
-
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="176dp"
-        android:layout_height="26dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.306"
-        app:srcCompat="@drawable/sign_in" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="96dp"
-        android:layout_height="58dp"
-        android:background="@drawable/submit"
-        android:onClick="onClick"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.081" />
+        android:id="@+id/gear1"
+        android:layout_width="109dp"
+        android:layout_height="110dp"
+        app:srcCompat="@drawable/gear"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="207dp" />
 
 </android.support.constraint.ConstraintLayout>
