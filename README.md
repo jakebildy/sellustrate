@@ -1,6 +1,6 @@
 ![sellustrate](https://github.com/jakebildy/sellustrate/blob/master/sellustrate_logo.png?raw=true)
 
-Sellustrate uses image recognition linked to the eBay API and a neural network to create a description to generate Ebay item profiles from a simple photo.
+Sellustrate uses image recognition linked to the eBay API and a neural network to create a description to generate eBay item profiles from a single photo. Developed in 36 hours for the Caltech hackathon (HackTech).
 
 
 # Technical Details
