@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent thingy = new Intent(this, LoadingActivity.class);
+        startActivity(thingy);
+
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.button2);
         button.setOnClickListener(this);
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button buttonNew = findViewById(R.id.buttonNew);
 
         TranslateAnimation swipeRight = new TranslateAnimation(0.0f,850.0f,0.0f,0.0f);
-        swipeRight.setDuration(600);
+        swipeRight.setDuration(6000);
         swipeRight.setFillAfter(true);
         swipeRight.setFillEnabled(true);
 

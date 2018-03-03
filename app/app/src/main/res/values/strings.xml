@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Sellustrate</string>
+    <string name="q1">Quality: New</string>
+    <string name="q2">Quality: New, opened</string>
+    <string name="q3">Quality: New with defects</string>
+    <string name="q4">Quality: Manufacturer refurbished</string>
+    <string name="q5">Quality: Seller refurbished</string>
+    <string name="q6">Quality: Used, mint</string>
+    <string name="q7">Quality: Used, very good</string>
+    <string name="q8">Quality: Used, good</string>
+    <string name="q9">Quality: Used, acceptable</string>
+    <string name="q10">Quality: Used, not working</string>
 </resources>

@@ -6,23 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.sellustrate.sellustrate.LoadingActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </RelativeLayout>
-
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="0dp"
+        android:layout_width="410dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/background" />
 
     <ImageView
@@ -31,21 +26,11 @@
         android:layout_height="101dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.824"
+        app:layout_constraintVertical_bias="0.823"
         app:srcCompat="@drawable/sellustrate_logo_blank" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="186dp"
-        android:layout_height="128dp"
-        android:background="@drawable/photo_button"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -53,17 +38,328 @@
         android:layout_height="147dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.693"
+        app:layout_constraintVertical_bias="0.761"
         app:srcCompat="@drawable/powered_by" />
 
     <ImageView
         android:id="@+id/gear1"
-        android:layout_width="109dp"
-        android:layout_height="110dp"
-        app:srcCompat="@drawable/gear"
-        tools:layout_editor_absoluteX="88dp"
-        tools:layout_editor_absoluteY="207dp" />
+        android:layout_width="101dp"
+        android:layout_height="104dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.376"
+        app:srcCompat="@drawable/gear" />
+
+    <ImageView
+        android:id="@+id/gear2"
+        android:layout_width="101dp"
+        android:layout_height="104dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gear1"
+        app:srcCompat="@drawable/gear" />
+
+    <ImageView
+        android:id="@+id/gear4"
+        android:layout_width="101dp"
+        android:layout_height="104dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gear3"
+        app:srcCompat="@drawable/gear" />
+
+    <ImageView
+        android:id="@+id/gear3"
+        android:layout_width="101dp"
+        android:layout_height="104dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.622"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.378"
+        app:srcCompat="@drawable/gear" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.797" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/q1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.378" />
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="790dp"
+        android:layout_height="307dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.316"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446">
+
+        <ImageView
+            android:id="@+id/e1"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/emoji_1f607"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e2"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f603"
+            tools:layout_editor_absoluteX="185dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s19"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e3"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f60b"
+            tools:layout_editor_absoluteX="305dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s21"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e4"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f916"
+            tools:layout_editor_absoluteX="267dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s22"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e5"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f590"
+            tools:layout_editor_absoluteX="390dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s23"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e6"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f649"
+            tools:layout_editor_absoluteX="354dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s24"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e7"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f648"
+            tools:layout_editor_absoluteX="472dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s25"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e8"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f648"
+            tools:layout_editor_absoluteX="431dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s26"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e9"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f611"
+            tools:layout_editor_absoluteX="513dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s28"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/e10"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/emoji_1f621"
+            tools:layout_editor_absoluteX="545dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+        <ImageView
+            android:id="@+id/s29"
+            android:layout_width="7dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/space"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
