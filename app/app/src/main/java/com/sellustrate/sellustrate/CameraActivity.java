@@ -1,5 +1,6 @@
 package com.sellustrate.sellustrate;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -70,6 +71,15 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 mCamera.takePicture(null, null, mPicture);
 
 
+            }
+        });
+
+        final Intent intent = new Intent(this, LoadingActivity.class);
+        Button finishButton = findViewById(R.id.finishButton);
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
             }
         });
     }

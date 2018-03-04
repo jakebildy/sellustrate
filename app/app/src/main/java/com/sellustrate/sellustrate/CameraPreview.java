@@ -1,9 +1,12 @@
 package com.sellustrate.sellustrate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 
 
 import java.io.IOException;
@@ -25,6 +28,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         this.mSurfaceHolder.addCallback(this);
         this.mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         System.out.println("end of camera constructor");
+
     }
 
     @Override
