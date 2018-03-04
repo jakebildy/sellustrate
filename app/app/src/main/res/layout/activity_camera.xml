@@ -30,14 +30,14 @@
         app:layout_constraintVertical_bias="0.895" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="69dp"
+        android:id="@+id/finishButton"
+        android:layout_width="94dp"
         android:layout_height="69dp"
         android:background="@drawable/submit"
         android:onClick="onClick"
         app:layout_constraintBottom_toTopOf="@+id/camera_preview"
         app:layout_constraintEnd_toStartOf="@+id/camera_preview"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toEndOf="@+id/camera_preview"
         app:layout_constraintTop_toBottomOf="@+id/camera_preview"
         app:layout_constraintVertical_bias="0.883" />
