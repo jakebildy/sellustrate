@@ -17,11 +17,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.rockerhieu.emojicon.EmojiconTextView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class LoadingActivity extends AppCompatActivity implements View.OnClickListener {
 
     int CURRENT_QUALITY = 0;
+
+    boolean DISABLE_SWIPE = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,42 +110,58 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    public void openQuality()
+    public void deInitQuality()
     {
+        Button button = findViewById(R.id.button3);
+        LinearLayout emojiLayout = findViewById(R.id.layout);
+        TextView description = findViewById(R.id.description);
+        DISABLE_SWIPE = true;
+        button.setVisibility(View.GONE);
+        for (int i=0;i<emojiLayout.getChildCount();i++)
+        {
+            emojiLayout.getChildAt(i).setVisibility(View.GONE);
+            emojiLayout.getChildAt(i).clearAnimation();
+        }
+
+        emojiLayout.setVisibility(View.GONE);
+        description.setVisibility(View.GONE);
+
 
     }
 
     //dir should be -1 or 1
     public void swipeEmoji(int dir)
     {
-        LinearLayout emojiLayout = findViewById(R.id.layout);
+        if (!DISABLE_SWIPE) {
+            LinearLayout emojiLayout = findViewById(R.id.layout);
 
-        TranslateAnimation swipeEmoji = new TranslateAnimation((CURRENT_QUALITY-1)*-241.0f,(CURRENT_QUALITY)*-241.0f,0.0f,0.0f);
-        swipeEmoji.setDuration(300);
-        swipeEmoji.setFillAfter(true);
-        swipeEmoji.setFillEnabled(true);
+            TranslateAnimation swipeEmoji = new TranslateAnimation((CURRENT_QUALITY - 1) * -241.0f, (CURRENT_QUALITY) * -241.0f, 0.0f, 0.0f);
+            swipeEmoji.setDuration(300);
+            swipeEmoji.setFillAfter(true);
+            swipeEmoji.setFillEnabled(true);
 
-        emojiLayout.startAnimation(swipeEmoji);
+            emojiLayout.startAnimation(swipeEmoji);
 
-        ScaleAnimation expandEmoji = new ScaleAnimation(1,1.5f,1,1.5f);
-        expandEmoji.setDuration(300);
-        expandEmoji.setFillAfter(true);
-        expandEmoji.setFillEnabled(true);
+            ScaleAnimation expandEmoji = new ScaleAnimation(1, 1.5f, 1, 1.5f);
+            expandEmoji.setDuration(300);
+            expandEmoji.setFillAfter(true);
+            expandEmoji.setFillEnabled(true);
 
-        ScaleAnimation popEmoji = new ScaleAnimation(1,0.66f,1,0.66f);
-        expandEmoji.setDuration(300);
-        expandEmoji.setFillAfter(true);
-        expandEmoji.setFillEnabled(true);
+            ScaleAnimation popEmoji = new ScaleAnimation(1, 0.66f, 1, 0.66f);
+            expandEmoji.setDuration(300);
+            expandEmoji.setFillAfter(true);
+            expandEmoji.setFillEnabled(true);
 
-        emojiLayout.getChildAt(CURRENT_QUALITY*2).startAnimation(expandEmoji);
+            emojiLayout.getChildAt(CURRENT_QUALITY * 2).startAnimation(expandEmoji);
 
             if (dir > 0)
-                if (CURRENT_QUALITY>0)
-                emojiLayout.getChildAt(CURRENT_QUALITY*2-2).startAnimation(popEmoji);
-          //  else
+                if (CURRENT_QUALITY > 0)
+                    emojiLayout.getChildAt(CURRENT_QUALITY * 2 - 2).startAnimation(popEmoji);
+            //  else
             //    if (CURRENT_QUALITY<9){
-             //   emojiLayout.getChildAt(CURRENT_QUALITY*2+2).startAnimation(popEmoji);
-             //   emojiLayout.getChildAt(CURRENT_QUALITY*2-2).startAnimation(popEmoji);}
+            //   emojiLayout.getChildAt(CURRENT_QUALITY*2+2).startAnimation(popEmoji);
+            //   emojiLayout.getChildAt(CURRENT_QUALITY*2-2).startAnimation(popEmoji);}
+        }
     }
 
     public void initGears()
@@ -146,15 +171,15 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         gear1.setColorFilter(Color.RED);
 
         ImageView gear2 = findViewById(R.id.gear2);
-        gear1.setVisibility(View.VISIBLE);
+        gear2.setVisibility(View.VISIBLE);
         gear2.setColorFilter(Color.BLUE);
 
         ImageView gear3 = findViewById(R.id.gear3);
-        gear1.setVisibility(View.VISIBLE);
+        gear3.setVisibility(View.VISIBLE);
         gear3.setColorFilter(Color.YELLOW);
 
         ImageView gear4 = findViewById(R.id.gear4);
-        gear1.setVisibility(View.VISIBLE);
+        gear4.setVisibility(View.VISIBLE);
         gear4.setColorFilter(Color.GREEN);
 
         RotateAnimation rotate = new RotateAnimation(0,360,Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
@@ -191,15 +216,9 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-
-        if (CURRENT_QUALITY < 9)
-            CURRENT_QUALITY++;
-        else
-            CURRENT_QUALITY = 0;;
-
-        swipeEmoji(1);
-
-        updateDescription();
+        deInitQuality();
+        setLoading(true);
+        create_JSON();
     }
 
     public void updateDescription()
@@ -249,4 +268,19 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
+    public void create_JSON()
+    {
+        JSONObject ebay_query = new JSONObject();
+
+      //  String s = getIntent().getStringExtra("KEY");
+        String s = "brown, cow, animal";
+        String[] keywords = s.split(",");
+        try {
+            ebay_query.put("keywords", keywords);
+            ebay_query.put("itemFilter", ebay_query.put("Condition", CURRENT_QUALITY));
+        }
+        catch (Exception e){}
+
+
+    }
 }
