@@ -26,9 +26,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -94,48 +96,49 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         return camera;
     }
 
-    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            System.out.println("picture was taken successfully :)))))");
+    Camera.PictureCallback mPicture;
 
-            File pictureFile = getOutputMediaFile();
+    {
+        mPicture = new Camera.PictureCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onPictureTaken(byte[] data, Camera camera) {
+                System.out.println("picture was taken successfully :)))))");
+
+                File pictureFile = getOutputMediaFile();
 //            try {
 //                analyzeImage(pictureFile.toString());
 //            } catch (URISyntaxException e) {
 //                e.printStackTrace();
 //            }
-            System.out.println(pictureFile.toString()+"<----- file strig");
-            if (pictureFile == null) {
-                return;
-            }
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
-                fos.close();
-                byte[] encoded = new byte[0];
-                try {
-                    encoded = encodeBase64(FileUtils.readFileToByteArray(pictureFile));
+                System.out.println(pictureFile.toString() + "<----- file strig");
+                if (pictureFile == null) {
+                    return;
                 }
-                catch (IOException e) {
+                try {
+                    FileOutputStream fos = new FileOutputStream(pictureFile);
+                    fos.write(data);
+                    fos.close();
+                    byte[] encoded = new byte[0];
+                    try {
+                        encoded = encodeBase64(FileUtils.readFileToByteArray(pictureFile));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    encodedString = new String(encoded, StandardCharsets.US_ASCII);
+                    JSONObject json = new JSONObject();
+                    json.put("sell", encodedString);
+
+                } catch (FileNotFoundException e) {
+
+                } catch (IOException e) {
+                    System.out.println("this image was not saved correctly :(");
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                encodedString = new String(encoded, StandardCharsets.US_ASCII);
-                JSONObject json=new JSONObject();
-                json.put("sell", encodedString);
-                System.out.println(" <---- encoded string " +encodedString);
             }
-            catch (FileNotFoundException e) {
-
-            }
-            catch (IOException e) {
-                System.out.println("this image was not saved correctly :(");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    };
+        };
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static File getOutputMediaFile() {
