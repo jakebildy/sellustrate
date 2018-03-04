@@ -71,12 +71,6 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Helper method to access the camera returns null if it cannot get the
-     * camera or does not exist
-     *
-     * @return
-     */
     private Camera getCameraInstance() {
         Camera camera = null;
         try {
