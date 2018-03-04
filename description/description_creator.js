@@ -71,7 +71,58 @@ function randomComment(NUMBER)
 
 }
 
+function getCondition(){
+    switch(QUALITY){
+        case 0:
+            return "New";
+        case 1:
+            return "New other";
+        case 2:
+            return "New with defects";
+        case 3:
+            return "Manufacturer refurbished";
+        case 4:
+            return "Seller refurbished";
+        case 5:
+            return "Used";
+        case 6:
+            return "Very Good";
+        case 7:
+            return "Good";
+        case 8:
+            return "Acceptable";
+        case 9:
+            return "For parts or not working";
+    }
+}
+
 function returnFinalDescription()
 {
     return "Selling " + KEYWORD + ": " + qualityIntToDescription(QUALITY) + randomComment(4);
+}
+
+function constructFinalJSON()
+{
+    return finalJSON = {
+        "product": {
+        "title": KEYWORD,
+            "aspects": [
+        ],
+            "description": returnFinalDescription(),
+            "imageUrls": [" "]
+    },
+        "condition": getCondition(),
+        "packageWeightAndSize": {
+        "packageType": "MAILING_BOX",
+            "weight": {
+            "value": 2,
+                "unit": "POUND"
+        }
+    },
+        "availability": {
+        "shipToLocationAvailability": {
+            "quantity": 1
+        }
+    }
+    }
 }
