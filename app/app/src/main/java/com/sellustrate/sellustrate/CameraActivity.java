@@ -52,6 +52,8 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCamera.takePicture(null, null, mPicture);
+
+
             }
         });
     }
@@ -75,7 +77,11 @@ public class CameraActivity extends AppCompatActivity {
     Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
+            System.out.println("picture was taken successfully :)))))");
+
             File pictureFile = getOutputMediaFile();
+            analyzeImage(pictureFile);
+            System.out.println(pictureFile.toString());
             if (pictureFile == null) {
                 return;
             }
@@ -86,6 +92,7 @@ public class CameraActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
 
             } catch (IOException e) {
+                System.out.println("this image was not saved correctly :(");
             }
         }
     };
@@ -94,10 +101,10 @@ public class CameraActivity extends AppCompatActivity {
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "MyCameraApp");
+                "sellustrate");
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.d("MyCameraApp", "failed to create directory");
+                Log.d("sellustrate", "failed to create directory");
                 return null;
             }
         }
