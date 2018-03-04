@@ -81,12 +81,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             HttpURLConnection c = null;
             try {
                 c = (HttpURLConnection) new URL("https://signin.ebay.com/ws/eBayISAPI.dll?SignIn&ru=").openConnection();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
             c.setUseCaches(false);
             try {
                 c.connect();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

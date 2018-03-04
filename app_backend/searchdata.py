@@ -88,7 +88,5 @@ def findSimilarProducts(opts):
 
     print("Finding samples for SDK version %s" % ebaysdk.get_version())
     (opts, args) = init_options()
-    run(opts)
-    run2(opts)
+
     findSimilarProducts(opts)
-    run_unicode(opts)
