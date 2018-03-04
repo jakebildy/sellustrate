@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoadingActivity"></activity>
+        <activity android:name=".CameraActivity"></activity>
     </application>
 
 </manifest>

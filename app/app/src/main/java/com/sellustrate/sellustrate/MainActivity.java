@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent thingy = new Intent(this, LoadingActivity.class);
-        startActivity(thingy);
+      //  Intent thingy = new Intent(this, LoadingActivity.class);
+       //  startActivity(thingy);
 
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.button2);
@@ -51,10 +51,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView password = findViewById(R.id.password);
         TextView username = findViewById(R.id.username);
         Button buttonOld = findViewById(R.id.button2);
-        Button buttonNew = findViewById(R.id.buttonNew);
+        Button buttonNew = findViewById(R.id.buttonNewPic);
+        ImageView user = findViewById(R.id.user);
+        ImageView lock = findViewById(R.id.lock);
 
         TranslateAnimation swipeRight = new TranslateAnimation(0.0f,850.0f,0.0f,0.0f);
-        swipeRight.setDuration(3000);
+        swipeRight.setDuration(1000);
         swipeRight.setFillAfter(true);
         swipeRight.setFillEnabled(true);
 
@@ -63,8 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         username.startAnimation(swipeRight);
         buttonOld.startAnimation(swipeRight);
         buttonNew.startAnimation(swipeRight);
+        user.startAnimation(swipeRight);
+        lock.startAnimation(swipeRight);
         password.setEnabled(false);
         username.setEnabled(false);
+        buttonOld.setEnabled(false);
+
     }
 
 }

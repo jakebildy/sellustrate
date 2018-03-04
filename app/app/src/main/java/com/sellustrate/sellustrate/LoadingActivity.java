@@ -49,6 +49,8 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
         setLoading(false);
 
+        //  String s = getIntent().getStringExtra("KEY");
+
        // Button button = findViewById(R.id.button);
         //button.setOnClickListener(this);
 
@@ -282,17 +284,10 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
     public void create_JSON()
     {
-
-      //  String s = getIntent().getStringExtra("KEY");
-        String s = "brown, cow, animal";
-        String[] keywords = s.split(",");
         try {
-            ebay_query.put("keywords", keywords);
-            ebay_query.put("itemFilter", ebay_query.put("Condition", CURRENT_QUALITY));
-        }
+        ebay_query.put("Quality", CURRENT_QUALITY);
+    }
         catch (Exception e){}
-
-
     }
 
     public static String post(String url){
@@ -313,7 +308,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
             httpPost.setEntity(se);
 
             // Set some headers to inform server about the type of the content
-            httpPost.setHeader("Accept", "application/json");
+           // httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
 
             // Execute POST request to the given URL
