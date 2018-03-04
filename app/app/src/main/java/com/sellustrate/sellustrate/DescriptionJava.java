@@ -144,7 +144,9 @@ public class DescriptionJava {
         return finalJSON;
         }
 
-    public static String post(String url){
+
+
+    public String post(String url){
         InputStream inputStream = null;
         String result = "";
         try {
@@ -154,7 +156,7 @@ public class DescriptionJava {
             HttpPost httpPost = new HttpPost(url);
 
             // set json to StringEntity
-            StringEntity se = new StringEntity(finalJSON);
+            StringEntity se = new StringEntity(finalJSON.toString());
 
             // set httpPost Entity
             httpPost.setEntity(se);
