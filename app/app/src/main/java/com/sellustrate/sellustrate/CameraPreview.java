@@ -5,7 +5,10 @@ import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+
 import java.io.IOException;
+
+
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mSurfaceHolder;
@@ -26,7 +29,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-System.out.println(surfaceHolder.isCreating());
+    System.out.println(surfaceHolder.isCreating());
         try {
             mCamera.setPreviewDisplay(surfaceHolder);
             System.out.println();
@@ -47,6 +50,8 @@ System.out.println(surfaceHolder.isCreating());
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format,
                                int width, int height) {
+        mCamera.setDisplayOrientation(90);
+
         // start preview with new settings
         try {
             mCamera.setPreviewDisplay(surfaceHolder);
