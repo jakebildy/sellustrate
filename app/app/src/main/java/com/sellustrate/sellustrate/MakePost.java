@@ -7,12 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.io.File;
+
+import static com.sellustrate.sellustrate.CameraActivity.*;
+
 public class MakePost extends AppCompatActivity {
 
     @Override
+    public static File mediaFile=CameraActivity.getImage();
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_make_post);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
