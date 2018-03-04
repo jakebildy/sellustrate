@@ -7,8 +7,7 @@ import android.view.SurfaceView;
 
 import java.io.IOException;
 
-public class CameraPreview extends SurfaceView implements
-        SurfaceHolder.Callback {
+public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mSurfaceHolder;
     private Camera mCamera;
 
@@ -18,17 +17,23 @@ public class CameraPreview extends SurfaceView implements
         super(context);
         System.out.println("super was called in CameraPreview constructor");
         this.mCamera = camera;
+        System.out.println("ehwehhddhfsheaz");
         this.mSurfaceHolder = this.getHolder();
         this.mSurfaceHolder.addCallback(this);
         this.mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        System.out.println("end of camera constructor");
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
+System.out.println(surfaceHolder.isCreating());
         try {
             mCamera.setPreviewDisplay(surfaceHolder);
+            System.out.println();
             mCamera.startPreview();
+            System.out.println("start preview in camPrev class is done");
         } catch (IOException e) {
+            System.out.println("surfaceCreated failed:((((");
             // left blank for now
         }
     }
