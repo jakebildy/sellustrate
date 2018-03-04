@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+
 
 import com.rockerhieu.emojicon.EmojiconTextView;
 
@@ -25,6 +34,7 @@ import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class LoadingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -219,6 +229,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         deInitQuality();
         setLoading(true);
         create_JSON();
+        System.out.println(post("http://sellustrate.azurewebsites.net/search"));
     }
 
     public void updateDescription()
@@ -267,10 +278,10 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    static JSONObject ebay_query = new JSONObject();
 
     public void create_JSON()
     {
-        JSONObject ebay_query = new JSONObject();
 
       //  String s = getIntent().getStringExtra("KEY");
         String s = "brown, cow, animal";
@@ -282,5 +293,46 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         catch (Exception e){}
 
 
+    }
+
+    public static String post(String url){
+        InputStream inputStream = null;
+        String result = "";
+        try {
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+            String json = ebay_query.toString();
+
+            // set json to StringEntity
+            StringEntity se = new StringEntity(json);
+
+            // set httpPost Entity
+            httpPost.setEntity(se);
+
+            // Set some headers to inform server about the type of the content
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            // Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // convert inputstream to string
+            if(inputStream != null)
+                result = IOUtils.toString(inputStream);
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+
+        // return result
+        return result;
     }
 }
