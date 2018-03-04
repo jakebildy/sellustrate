@@ -56,6 +56,7 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.ouy.println("super was called in onCreate in Camera activity");
         setContentView(R.layout.activity_camera);
         mCamera = getCameraInstance();
         System.out.println("constructing camera");
