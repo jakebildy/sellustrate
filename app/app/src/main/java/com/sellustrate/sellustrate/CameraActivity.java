@@ -1,8 +1,10 @@
 package com.sellustrate.sellustrate;
 
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,15 +26,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 
 public class CameraActivity extends AppCompatActivity {
 
 
-    public static final String subscriptionKey = "MY_KEY";
+    public static final String subscriptionKey = "cfa2ac95fcf04101b79b839837876d16";
     public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
     private Camera mCamera;
     private CameraPreview mCameraPreview;
@@ -75,12 +77,17 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             System.out.println("picture was taken successfully :)))))");
 
             File pictureFile = getOutputMediaFile();
-            analyzeImage(pictureFile);
+            try {
+                analyzeImage(pictureFile.toString());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
             System.out.println(pictureFile.toString());
             if (pictureFile == null) {
                 return;
@@ -119,50 +126,45 @@ public class CameraActivity extends AppCompatActivity {
     }
 
 
-    public JSONObject analyzeImage(File image){
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public JSONObject analyzeImage(String imageUrl) throws URISyntaxException {
         HttpClient httpclient = new DefaultHttpClient();
 
-        try {
+        try{
             URIBuilder builder = new URIBuilder(uriBase);
-
-            // Request parameters. All of them are optional.
             builder.setParameter("visualFeatures", "Categories,Description,Color");
             builder.setParameter("language", "en");
 
-            // Prepare the URI for the REST API call.
+
             URI uri = builder.build();
             HttpPost request = new HttpPost(uri);
 
-            // Request headers.
             request.setHeader("Content-Type", "application/json");
             request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
 
-            // Request body.
-            StringEntity reqEntity = new StringEntity("{\"url\":\"https://upload.wikimedia.org/wikipedia/commons/1/12/Broadway_and_Times_Square_by_night.jpg\"}");
-            request.setEntity(reqEntity);
+            StringEntity reqEntity = new StringEntity("{\"url\"imageUrl\"}");
 
-            // Execute the REST API call and get the response entity.
             HttpResponse response = httpclient.execute(request);
             HttpEntity entity = response.getEntity();
 
-            if (entity != null) {
+            if (entity != null)
+            {
                 // Format and display the JSON response.
                 String jsonString = EntityUtils.toString(entity);
                 JSONObject json = new JSONObject(jsonString);
-                System.out.println("success:)");
                 System.out.println("REST Response:\n");
                 System.out.println(json.toString(2));
-                return json;
             }
+
+
         }
-        catch (Exception  e) {
-            // Display error message.
-            System.out.println(e.getMessage());
-            System.out.println("No JSON was created");
-            return new JSONObject();
+
+        catch(Exception e){
+            System.out.println("api didnt work:(");
 
         }
         return new JSONObject();
     }
 
-}
+
+}//end cameraActivity
