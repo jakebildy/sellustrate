@@ -1,6 +1,5 @@
 package com.sellustrate.sellustrate;
 
-import android.content.Intent;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -8,15 +7,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -27,11 +23,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -73,15 +67,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-
-        final Intent intent = new Intent(this, LoadingActivity.class);
-        Button finishButton = findViewById(R.id.finishButton);
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intent);
-            }
-        });
     }
 
 
@@ -106,49 +91,49 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         return camera;
     }
 
-    Camera.PictureCallback mPicture;
+    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            System.out.println("picture was taken successfully :)))))");
 
-    {
-        mPicture = new Camera.PictureCallback() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onPictureTaken(byte[] data, Camera camera) {
-                System.out.println("picture was taken successfully :)))))");
-
-                File pictureFile = getOutputMediaFile();
+            File pictureFile = getOutputMediaFile();
 //            try {
 //                analyzeImage(pictureFile.toString());
 //            } catch (URISyntaxException e) {
 //                e.printStackTrace();
 //            }
-                System.out.println(pictureFile.toString() + "<----- file strig");
-                if (pictureFile == null) {
-                    return;
-                }
+            System.out.println(pictureFile.toString()+"<----- file strig");
+            if (pictureFile == null) {
+                return;
+            }
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+                byte[] encoded = new byte[0];
                 try {
-                    FileOutputStream fos = new FileOutputStream(pictureFile);
-                    fos.write(data);
-                    fos.close();
-                    byte[] encoded = new byte[0];
-                    try {
-                        encoded = encodeBase64(FileUtils.readFileToByteArray(pictureFile));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    encodedString = new String(encoded, StandardCharsets.US_ASCII);
-                    JSONObject json = new JSONObject();
-                    json.put("sell", encodedString);
-
-                } catch (FileNotFoundException e) {
-
-                } catch (IOException e) {
-                    System.out.println("this image was not saved correctly :(");
-                } catch (JSONException e) {
+                    encoded = encodeBase64(FileUtils.readFileToByteArray(pictureFile));
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
+                encodedString = new String(encoded, StandardCharsets.US_ASCII);
+                JSONObject json=new JSONObject();
+                json.put("sell", encodedString);
+                post(uriBase,json.toString());
+                System.out.println(" <---- encoded string " +encodedString);
             }
-        };
-    }
+            catch (FileNotFoundException e) {
+
+            }
+            catch (IOException e) {
+                System.out.println("this image was not saved correctly :(");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static File getOutputMediaFile() {
@@ -199,7 +184,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             // Set some headers to inform server about the type of the content
             // httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
-
+            httpPost.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
             // Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
