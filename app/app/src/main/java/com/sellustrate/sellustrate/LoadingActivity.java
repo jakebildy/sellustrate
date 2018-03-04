@@ -230,13 +230,20 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         gear4.setVisibility(View.GONE);
     }
 
-
+    Intent i = new Intent(this, MakePost.class);
     @Override
     public void onClick(View view) {
-        deInitQuality();
-        setLoading(true);
-        create_JSON();
-        new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/search");
+        if (view.getId() != R.id.button4) {
+            deInitQuality();
+            setLoading(true);
+            create_JSON();
+            new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/search");
+        }
+        else
+        {
+            i.putExtra("key","value");
+            startActivity(i);
+        }
     }
 
     public void updateDescription()
