@@ -1,19 +1,13 @@
 package com.sellustrate.sellustrate;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-
 import android.hardware.Camera;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Size;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,35 +26,23 @@ import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 
 
 public class CameraActivity extends AppCompatActivity {
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    private File thisImage;
-    private Camera camera;
+
     public static final String subscriptionKey = "MY_KEY";
     public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
-    private ImageView mImageView;
     private Camera mCamera;
-    private MediaRecorder mPreview;
-    private List<Size> mSupportedPreviewSizes;
-    private Object mPreviewSize;
-
-    //@Override
     private CameraPreview mCameraPreview;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("super was called in onCreate in Camera activity");
         setContentView(R.layout.activity_camera);
         mCamera = getCameraInstance();
-        System.out.println("constructing camera");
-
         mCameraPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mCameraPreview);
@@ -74,6 +56,12 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Helper method to access the camera returns null if it cannot get the
+     * camera or does not exist
+     *
+     * @return
+     */
     private Camera getCameraInstance() {
         Camera camera = null;
         try {
@@ -95,7 +83,6 @@ public class CameraActivity extends AppCompatActivity {
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
-                analyzeImage(pictureFile);
             } catch (FileNotFoundException e) {
 
             } catch (IOException e) {
@@ -123,7 +110,6 @@ public class CameraActivity extends AppCompatActivity {
 
         return mediaFile;
     }
-
 
 
     public JSONObject analyzeImage(File image){
@@ -171,11 +157,5 @@ public class CameraActivity extends AppCompatActivity {
         }
         return new JSONObject();
     }
-
-    public File getImage(){
-
-        return thisImage;
-    }
-
 
 }
