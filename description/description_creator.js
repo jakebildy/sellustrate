@@ -126,3 +126,13 @@ function constructFinalJSON()
     }
     }
 }
+
+//Sends final JSON to server
+request({
+    url: "http://sellustrate.azurewebsites.net/final",
+    method: "POST",
+    json: true,
+    body: constructFinalJSON()
+}, function (error, response, body){
+
+});
