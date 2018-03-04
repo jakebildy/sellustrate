@@ -1,16 +1,20 @@
 package com.sellustrate.sellustrate;
 
 import android.hardware.Camera;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,19 +29,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static android.util.Base64.*;
+import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
-public class CameraActivity extends AppCompatActivity {
+
+public class CameraActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     public static final String subscriptionKey = "cfa2ac95fcf04101b79b839837876d16";
     public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
     private Camera mCamera;
     private CameraPreview mCameraPreview;
+
+    public static String encodedString;
 
     /** Called when the activity is first created. */
     @Override
@@ -58,6 +69,12 @@ public class CameraActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
     }
 
     /**
@@ -104,6 +121,7 @@ public class CameraActivity extends AppCompatActivity {
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(
                 Environment
@@ -121,6 +139,14 @@ public class CameraActivity extends AppCompatActivity {
         File mediaFile;
         mediaFile = new File(mediaStorageDir.getPath() + File.separator
                 + "IMG_" + timeStamp + ".jpg");
+
+        byte[] encoded = new byte[0];
+        try {
+            encoded = encodeBase64(FileUtils.readFileToByteArray(mediaFile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+           encodedString = new String(encoded, StandardCharsets.US_ASCII);
 
         return mediaFile;
     }
@@ -164,6 +190,59 @@ public class CameraActivity extends AppCompatActivity {
 
         }
         return new JSONObject();
+    }
+
+
+
+    public static String post(String url, String encodedFile){
+        InputStream inputStream = null;
+        String result = "";
+        try {
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+            // set json to StringEntity
+            StringEntity se = new StringEntity(encodedFile);
+
+            // set httpPost Entity
+            httpPost.setEntity(se);
+
+            // Set some headers to inform server about the type of the content
+            // httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            // Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+
+        } catch (Exception e) {
+            String errorMsg = e.getLocalizedMessage();
+            Log.d("InputStream", errorMsg);
+
+        }
+        System.out.println(result);
+        // return result
+        return result;
+    }
+
+
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+
+            return post(urls[0], encodedString);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+        }
     }
 
 
