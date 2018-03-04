@@ -1,34 +1,41 @@
 package com.sellustrate.sellustrate;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import java.awt.Image;
-import java.awt.image.BufferedImage
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import org.apache.http.Header;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-//import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-static final int REQUEST_IMAGE_CAPTURE = 1;
-private File thisImage;
-public static final String subscriptionKey = "MY_KEY";
-public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.app.Activity.RESULT_OK;
+
+//import org.apache.http.impl.client.DefaultHttpClient;
+
 
 public class CameraActivity extends AppCompatActivity {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private File thisImage;
+    public static final String subscriptionKey = "MY_KEY";
+    public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+    private ImageView mImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +55,11 @@ public class CameraActivity extends AppCompatActivity {
             }
             catch (IOException ex) {
                 // Error occurred while creating the File
-                System.out.println("image wasn't taken:(((");
+                System.out.println("there was an error creating this file");
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
+                Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
@@ -69,12 +74,13 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+
+    //done (hopefully)
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName,".jpg",storageDir);
+        File image = File.createTempFile(imageFileName,".jpg");
         thisImage=image;
         return image;
     }
@@ -109,20 +115,24 @@ public class CameraActivity extends AppCompatActivity {
                 // Format and display the JSON response.
                 String jsonString = EntityUtils.toString(entity);
                 JSONObject json = new JSONObject(jsonString);
-                System.out.println("success!");
+                System.out.println("success:)");
                 System.out.println("REST Response:\n");
                 System.out.println(json.toString(2));
                 return json;
             }
         }
-        catch (Exception e)
-        {
+
+        catch (Exception e) {
             // Display error message.
             System.out.println(e.getMessage());
+            System.out.println("No JSON was created");
+            return new JSONObject();
         }
+        return new JSONObject();
     }
 
     public File getImage(){
+
         return thisImage;
     }
 
