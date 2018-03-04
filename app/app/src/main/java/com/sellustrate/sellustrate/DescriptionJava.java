@@ -9,6 +9,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -105,30 +106,40 @@ public class DescriptionJava {
             return "Selling " + KEYWORD + ": " + qualityIntToDescription(QUALITY) + randomComment(4);
         }
 
+    JSONObject finalJSON;
+
         public JSONObject constructFinalJSON()
         {
-            JSONObject finalJSON = {
-        "product": {
-        "title": KEYWORD,
-        "aspects": [
-        ],
-        "description": returnFinalDescription(),
-        "imageUrls": [" "]
-        },
-        "condition": getCondition(),
-        "packageWeightAndSize": {
-        "packageType": "MAILING_BOX",
-        "weight": {
-        "value": 2,
-        "unit": "POUND"
-        }
-        },
-        "availability": {
-        "shipToLocationAvailability": {
-        "quantity": 1
-        }
-        }
-        }
+             finalJSON = new JSONObject();
+
+
+            JSONObject availability = new JSONObject();
+            JSONObject shipToLocationAvailability = new JSONObject();
+            try {
+                availability.put("shipToLocationAvailability", shipToLocationAvailability);
+                shipToLocationAvailability.put("quantity",1);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JSONObject json1 = new JSONObject();
+            try {
+                json1.put("title", KEYWORD);
+                json1.put("description", returnFinalDescription());
+                json1.put("imageUrls", "");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                finalJSON.put("product", json1);
+                finalJSON.put("condition", getCondition(QUALITY));
+                finalJSON.put("availability",availability);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
 
         return finalJSON;
         }
@@ -143,7 +154,7 @@ public class DescriptionJava {
             HttpPost httpPost = new HttpPost(url);
 
             // set json to StringEntity
-            StringEntity se = new StringEntity(constructFinalJSON());
+            StringEntity se = new StringEntity(finalJSON);
 
             // set httpPost Entity
             httpPost.setEntity(se);
