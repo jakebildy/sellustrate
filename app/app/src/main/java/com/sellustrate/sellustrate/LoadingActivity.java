@@ -43,9 +43,9 @@ import java.io.InputStreamReader;
 public class LoadingActivity extends AppCompatActivity implements View.OnClickListener {
 
     int CURRENT_QUALITY = 0;
-
+    final String[]TYPICAL_NAME_CONDITIONS={"New", "New other (see details)", "New with defects", "Manufacturer refurbished", "Seller refurbished", "Used", "Very Good", "Good", "Acceptable", "For parts or not working"};
     boolean DISABLE_SWIPE = false;
-
+    String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +87,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
           {
               if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY){
                   //right to left
+                  System.out.println("right to lefttttt");
                   if (CURRENT_QUALITY < 9)
                       CURRENT_QUALITY++;
                   else
