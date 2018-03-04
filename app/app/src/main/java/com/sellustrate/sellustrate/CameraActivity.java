@@ -23,6 +23,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -121,6 +122,8 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                     e.printStackTrace();
                 }
                 encodedString = new String(encoded, StandardCharsets.US_ASCII);
+                JSONObject json=new JSONObject();
+                json.put("sell", encodedString);
                 System.out.println(" <---- encoded string " +encodedString);
             }
             catch (FileNotFoundException e) {
@@ -128,6 +131,8 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             }
             catch (IOException e) {
                 System.out.println("this image was not saved correctly :(");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     };
