@@ -100,12 +100,12 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             System.out.println("picture was taken successfully :)))))");
 
             File pictureFile = getOutputMediaFile();
-            try {
-                analyzeImage(pictureFile.toString());
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            System.out.println(pictureFile.toString());
+//            try {
+//                analyzeImage(pictureFile.toString());
+//            } catch (URISyntaxException e) {
+//                e.printStackTrace();
+//            }
+            System.out.println(pictureFile.toString()+"<----- file strig");
             if (pictureFile == null) {
                 return;
             }
@@ -113,9 +113,20 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
-            } catch (FileNotFoundException e) {
+                byte[] encoded = new byte[0];
+                try {
+                    encoded = encodeBase64(FileUtils.readFileToByteArray(pictureFile));
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                encodedString = new String(encoded, StandardCharsets.US_ASCII);
+                System.out.println(" <---- encoded string " +encodedString);
+            }
+            catch (FileNotFoundException e) {
 
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 System.out.println("this image was not saved correctly :(");
             }
         }
@@ -140,59 +151,17 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         mediaFile = new File(mediaStorageDir.getPath() + File.separator
                 + "IMG_" + timeStamp + ".jpg");
 
-        byte[] encoded = new byte[0];
-        try {
-            encoded = encodeBase64(FileUtils.readFileToByteArray(mediaFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-           encodedString = new String(encoded, StandardCharsets.US_ASCII);
-
+//
+//        byte[] encoded = new byte[0];
+//        try {
+//            encoded = encodeBase64(FileUtils.readFileToByteArray(mediaFile));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//           encodedString = new String(encoded, StandardCharsets.US_ASCII);
+//        System.out.println(encodedString+" <---- encoded string");
         return mediaFile;
     }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public JSONObject analyzeImage(String imageUrl) throws URISyntaxException {
-        HttpClient httpclient = new DefaultHttpClient();
-
-        try{
-            URIBuilder builder = new URIBuilder(uriBase);
-            builder.setParameter("visualFeatures", "Categories,Description,Color");
-            builder.setParameter("language", "en");
-
-
-            URI uri = builder.build();
-            HttpPost request = new HttpPost(uri);
-
-            request.setHeader("Content-Type", "application/json");
-            request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-
-            StringEntity reqEntity = new StringEntity("{\"url\"imageUrl\"}");
-
-            HttpResponse response = httpclient.execute(request);
-            HttpEntity entity = response.getEntity();
-
-            if (entity != null)
-            {
-                // Format and display the JSON response.
-                String jsonString = EntityUtils.toString(entity);
-                JSONObject json = new JSONObject(jsonString);
-                System.out.println("REST Response:\n");
-                System.out.println(json.toString(2));
-            }
-
-
-        }
-
-        catch(Exception e){
-            System.out.println("api didnt work:(");
-
-        }
-        return new JSONObject();
-    }
-
-
 
     public static String post(String url, String encodedFile){
         InputStream inputStream = null;
@@ -246,4 +215,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-}//end cameraActivity
+//end cameraActivity
+
+
+}
