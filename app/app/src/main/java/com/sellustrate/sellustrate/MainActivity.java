@@ -2,7 +2,9 @@ package com.sellustrate.sellustrate;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //slides everything to the right
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public void slide()
     {
         ImageView signIn = findViewById(R.id.imageView7);
