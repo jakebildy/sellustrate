@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -31,6 +32,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -90,7 +92,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }
         return camera;
     }
-
+    JSONObject json=new JSONObject();
     Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
@@ -98,11 +100,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             System.out.println("picture was taken successfully :)))))");
 
             File pictureFile = getOutputMediaFile();
-//            try {
-//                analyzeImage(pictureFile.toString());
-//            } catch (URISyntaxException e) {
-//                e.printStackTrace();
-//            }
+
             System.out.println(pictureFile.toString()+"<----- file strig");
             if (pictureFile == null) {
                 return;
@@ -119,9 +117,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                     e.printStackTrace();
                 }
                 encodedString = new String(encoded, StandardCharsets.US_ASCII);
-                JSONObject json=new JSONObject();
+
                 json.put("sell", encodedString);
-                post(uriBase,json.toString());
+                new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
                 System.out.println(" <---- encoded string " +encodedString);
             }
             catch (FileNotFoundException e) {
@@ -166,7 +164,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         return mediaFile;
     }
 
-    public static String post(String url, String encodedFile){
+    public String post(String url){
         InputStream inputStream = null;
         String result = "";
         try {
@@ -176,7 +174,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             HttpPost httpPost = new HttpPost(url);
 
             // set json to StringEntity
-            StringEntity se = new StringEntity(encodedFile);
+            StringEntity se = new StringEntity(json.toString());
 
             // set httpPost Entity
             httpPost.setEntity(se);
@@ -184,7 +182,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             // Set some headers to inform server about the type of the content
             // httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
-            httpPost.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+
             // Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
@@ -192,6 +190,11 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
 
+            // convert inputstream to string
+            //  if(inputStream != null)
+            //     result = convertInputStreamToString(inputStream);
+            //     else
+            //     result = "Did not work!";
 
         } catch (Exception e) {
             String errorMsg = e.getLocalizedMessage();
@@ -199,16 +202,19 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
         }
         System.out.println(result);
+        System.out.println("HELLOOOOOOOOOOO");
         // return result
         return result;
+
     }
+
 
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
 
-            return post(urls[0], encodedString);
+            return post(urls[0]);
         }
         // onPostExecute displays the results of the AsyncTask.
         @Override
@@ -216,7 +222,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
         }
     }
-
 
 //end cameraActivity
 
