@@ -6,7 +6,7 @@ Sellustrate uses image recognition linked to the eBay API to create a descriptio
 # Technical Details
  **Frontend**: Java (Android Studio)
 
- **Backend**: Python (Microsoft Azure)
+ **Backend**: Python (Microsoft Azure), Javascript
  
  # How it works
 The user only needs to take a picture of the item they wish to sell - the app does nearly all the rest!
