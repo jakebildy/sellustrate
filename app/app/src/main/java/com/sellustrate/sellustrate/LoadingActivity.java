@@ -1,6 +1,7 @@
 package com.sellustrate.sellustrate;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -32,9 +34,11 @@ import com.rockerhieu.emojicon.EmojiconTextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class LoadingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -231,7 +235,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         deInitQuality();
         setLoading(true);
         create_JSON();
-        System.out.println(post("http://sellustrate.azurewebsites.net/search"));
+        new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/search");
     }
 
     public void updateDescription()
@@ -314,20 +318,50 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
             // Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
+
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
 
             // convert inputstream to string
             if(inputStream != null)
-                result = IOUtils.toString(inputStream);
+                result = convertInputStreamToString(inputStream);
             else
                 result = "Did not work!";
 
         } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
-        }
+            String errorMsg = e.getLocalizedMessage();
+            Log.d("InputStream", errorMsg);
 
+        }
+        System.out.println(result);
+        System.out.println("HELLOOOOOOOOOOO");
         // return result
         return result;
+    }
+
+
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+
+            return post(urls[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
     }
 }

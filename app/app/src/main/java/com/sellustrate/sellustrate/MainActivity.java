@@ -1,6 +1,7 @@
 package com.sellustrate.sellustrate;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +15,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-      //  Intent thingy = new Intent(this, LoadingActivity.class);
-       //  startActivity(thingy);
+        Intent thingy = new Intent(this, LoadingActivity.class);
+          startActivity(thingy);
 
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.button2);
