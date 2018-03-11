@@ -230,7 +230,6 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         gear4.setVisibility(View.GONE);
     }
 
-    Intent i = new Intent(this, MakePost.class);
     @Override
     public void onClick(View view) {
         if (view.getId() != R.id.button4) {
@@ -241,8 +240,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         }
         else
         {
-            i.putExtra("key","value");
-            startActivity(i);
+
         }
     }
 
