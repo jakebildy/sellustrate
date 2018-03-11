@@ -21,7 +21,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     @SuppressWarnings("deprecation")
     public CameraPreview(Context context, Camera camera) {
         super(context);
-        System.out.println("super was called in CameraPreview constructor");
         this.mCamera = camera;
         System.out.println("ehwehhddhfsheaz");
         this.mSurfaceHolder = this.getHolder();
