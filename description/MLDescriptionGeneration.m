@@ -45,7 +45,5 @@ function x = cleanUpSentence(str)
 %Removes unwanted chars from descriptions
 x = regexprep(regexprep(regexprep(regexprep(strrep(strrep(str,':',''),'.',''),'\r',''),'\v',''),'\n',''),'"','');
 
-
-
 end
 
