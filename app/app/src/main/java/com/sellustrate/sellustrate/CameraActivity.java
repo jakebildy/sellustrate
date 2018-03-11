@@ -26,13 +26,11 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
+
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -72,6 +70,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     public void onClick(View view) {
         new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
@@ -106,9 +105,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }
             try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
-                fos.close();
                 byte[] encoded = new byte[0];
                 try {
                     encoded = encodeBase64(FileUtils.readFileToByteArray(pictureFile));
@@ -122,12 +118,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
                 System.out.println(" <---- encoded string " +encodedString);
             }
-            catch (FileNotFoundException e) {
-
-            }
-            catch (IOException e) {
-                System.out.println("this image was not saved correctly :(");
-            } catch (JSONException e) {
+                 catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -210,6 +201,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
