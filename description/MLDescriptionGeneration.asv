@@ -10,14 +10,14 @@ generate(str);
 function y = generate(str)
 descriptions = split(lower(str), ",");
 
-descOne = descriptions(1);
-words = split(descOne, " ");
+descOne = descriptions(0);
+words = descOne
 
-[~,wordID, count] = unique(words);
+[~,wordID, count] = unique(descriptions);
 
 n = accumarray(count,1);
 
-y = horzcat(num2cell(n), words(wordID)) %n occurences for each word
+y = horzcat(num2cell(n), descriptions(wordID)) %n occurences for each word
 
 
 end
