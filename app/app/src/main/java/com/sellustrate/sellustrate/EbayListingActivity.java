@@ -12,6 +12,7 @@ public class EbayListingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //make http request
         setContentView(R.layout.activity_ebay_listing);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -25,5 +26,7 @@ public class EbayListingActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
