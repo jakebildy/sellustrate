@@ -1,7 +1,6 @@
 package com.sellustrate.sellustrate;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,41 +15,26 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLOutput;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.util.Base64.*;
-import static org.apache.commons.codec.binary.Base64.encodeBase64;
-
-
+//@author agathaturya
 public class CameraActivity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -141,7 +125,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 new HttpAsyncTask().execute(uriBase);
-                startActivity( new Intent(CameraActivity.this, LoadingActivity.class));
+                startActivity(new Intent(CameraActivity.this, LoadingActivity.class));
 
             }
         };
@@ -189,16 +173,16 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             HttpPost httpPost = new HttpPost(url);
 
             // set json to StringEntity
-            String quote="\"";
-            System.out.println("right before temp path " );
-            String tempPath="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Tetragonula_carbonaria_%2814521993792%29.jpg/220px-Tetragonula_carbonaria_%2814521993792%29.jpg";
-            String tempURL=("{" + quote+ "url" + quote+":"+ quote+ tempPath +quote+ "}");
+            //quote variable makes it much more readable :)
+            String quote = "\"";
+            String tempPath = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Tetragonula_carbonaria_%2814521993792%29.jpg/220px-Tetragonula_carbonaria_%2814521993792%29.jpg";
+            String tempURL = ("{" + quote + "url" + quote + ":" + quote + tempPath + quote + "}");
 
-            System.out.println(tempURL+" is the temp url");
+            System.out.println(tempURL + " is the temp url");
             StringEntity se = new StringEntity(tempURL);
             //FileEntity reqEntity = new FileEntity(pictureFile, "application/json");
 
-            System.out.println(json.get("url")+ " is the url in the json");
+            System.out.println(json.get("url") + " is the url in the json");
             // set httpPost Entity
 
 
@@ -207,7 +191,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             httpPost.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
             httpPost.setEntity(se);
 
-          //  System.out.println(reqEntity.toString());
+            //  System.out.println(reqEntity.toString());
             // Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
@@ -247,9 +231,23 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         protected void onPostExecute(String result) {
             Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
         }
+    }//end HttpAsyncTask
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String getAPIKey() {
+        try {
+            String data = "";
+            data = new String(Files.readAllBytes(Paths.get("API_KEYS.TXT")));
+            return data;
+
+            }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            }
+        catch (IOException e) {
+            e.printStackTrace();
+            }
+        return null;
     }
-
-
-
 
 }//end cameraActivity
