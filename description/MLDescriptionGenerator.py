@@ -2,11 +2,12 @@ from collections import Counter
 import random
 import networkx as nx
 from nltk.corpus import wordnet
-
+from nltk.stem.wordnet import WordNetLemmatizer
 
 fileID = open("descriptions.txt", "r")
 
 descriptions = fileID.read()
+
 
 
 def clean_up_sentence(sentence):
@@ -53,10 +54,27 @@ def sounds_like(word1, word2):
                 if w1[i].wup_similarity(w2[j]) > 0.8:
                     return True
             except TypeError:
-                    break
+                {}
+
 
     return False
 
+
+def sentence_from_verb(counts):
+
+    pre_str = "Do you like to "
+    post_str = "?"
+
+    for key in counts.most_common(4)[1]:
+        try:
+            lemmatizer = WordNetLemmatizer()
+            word = lemmatizer.lemmatize(key, wordnet.VERB)
+            if len(word) > 0:
+                return pre_str+word+post_str
+        except IndexError:
+            {}
+
+    return "NULL"
 
 
 qualityIntToDescription = {
@@ -100,6 +118,7 @@ randomComment = {
 
 
 print(generate_descriptions(descriptions))
+print(sentence_from_verb(generate_descriptions(descriptions)))
 print(qualityIntToDescription[random.randint(0, 9)]+randomComment[random.randint(0, 5)])
 word1 = input("Enter a word: ")
 word2 = input("Enter a second word: ")
