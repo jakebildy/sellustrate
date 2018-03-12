@@ -17,8 +17,18 @@
       <file leaf-file-name="MLDescriptionGenerator.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MLDescriptionGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+            <state relative-caret-position="525">
+              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="datastructures.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python36_64/Lib/site-packages/werkzeug/datastructures.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-438">
+              <caret line="1690" column="8" lean-forward="false" selection-start-line="1690" selection-start-column="8" selection-end-line="1690" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -198,14 +208,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MLDescriptionGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/description_creator.js" />
     <entry file="file://$USER_HOME$/node_modules/xmlhttprequest/lib/XMLHttpRequest.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -226,5 +228,21 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/description_creator.js" />
+    <entry file="file://C:/Python36_64/Lib/site-packages/werkzeug/datastructures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-438">
+          <caret line="1690" column="8" lean-forward="false" selection-start-line="1690" selection-start-column="8" selection-end-line="1690" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MLDescriptionGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
