@@ -1,17 +1,34 @@
 from collections import Counter
 import random
+
 import networkx as nx
 from nltk.corpus import wordnet
-from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import nltk
 
 fileID = open("descriptions.txt", "r")
 
 descriptions = fileID.read()
+posTokens = []
 
+def pos_tokens(sentence):
+    tokens = word_tokenize(sentence)  # Generate list of tokens
+
+    iterTokens = tokens.copy()
+
+    for token in iterTokens:
+        for key_lemma in wordnet.lemmas(token):
+            for related_lemma in key_lemma.derivationally_related_forms():
+                print(related_lemma.name())
+                tokens.append(related_lemma.name())
+
+    tagged = nltk.pos_tag(tokens)
+    return tagged
 
 def clean_up_sentence(sentence):
     sentence = sentence.replace('"', "").replace("\n", "").replace(".", "").replace(",", "").replace("  ", " ")
+
     for i in range(len(stopwords.words('english'))):
         sentence = sentence.replace(" "+stopwords.words('english')[i]+" ", " ")
     return sentence
@@ -19,6 +36,7 @@ def clean_up_sentence(sentence):
 
 def get_word_commonality_total(desc_array):
     desc = clean_up_sentence(" ".join(desc_array))
+    posTokens.append(pos_tokens(desc))
     words = desc.split(" ")
     counts = Counter(words)
     return counts
@@ -59,25 +77,38 @@ def sounds_like(word1, word2):
             except TypeError:
                 {}
 
-
     return False
 
 
 def sentence_from_verb(counts):
 
-    pre_str = "Do you like to "
-    post_str = "?"
+    gen_desc = ""
 
-    for key in counts.most_common(4)[1]:
+    for key in counts.most_common(4):
+        keyWord = key[0]
         try:
-            lemmatizer = WordNetLemmatizer()
-            word = lemmatizer.lemmatize(key, wordnet.VERB)
-            if len(word) > 0:
-                return pre_str+word+post_str
+            forms = set()
+
+            for key_lemma in wordnet.lemmas(keyWord):
+                for related_lemma in key_lemma.derivationally_related_forms():
+                    print(related_lemma.name())
+                    word = related_lemma.name()
+
+                    for i in range(len(posTokens[0])):
+                        if word == posTokens[0][i][0]:
+                            print(posTokens[0][i][1])
+                            if posTokens[0][i][1].startswith('NNS') and word not in gen_desc:
+                               gen_desc = "Looking for " + word + "? ".join(gen_desc)
+                            if posTokens[0][i][1].startswith('NN') and "may be just" not in gen_desc:
+                                gen_desc += "This " + word + " may be just what you're looking for. "
+                            if posTokens[0][i][1].startswith('JJ') and word not in gen_desc :
+                                gen_desc = "Passionate about everything " + word + "? "
+
+        except AttributeError:
+            {}
         except IndexError:
             {}
-
-    return "NULL"
+    return gen_desc
 
 
 qualityIntToDescription = {
