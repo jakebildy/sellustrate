@@ -1,6 +1,8 @@
 from collections import Counter
 import random
 import networkx as nx
+from nltk.corpus import wordnet
+
 
 fileID = open("descriptions.txt", "r")
 
@@ -38,6 +40,23 @@ def generate_descriptions(desc):
 
 def count_ratio(countsSmol, counts):
         return len(counts)/len(countsSmol)
+
+
+def sounds_like(word1, word2):
+
+    w1 = wordnet.synsets(word1)
+    w2 = wordnet.synsets(word2)
+
+    for i in range(len(w1)):
+        for j in range(len(w2)):
+            try:
+                if w1[i].wup_similarity(w2[j]) > 0.8:
+                    return True
+            except TypeError:
+                    break
+
+    return False
+
 
 
 qualityIntToDescription = {
@@ -81,6 +100,8 @@ randomComment = {
 
 
 print(generate_descriptions(descriptions))
-print(qualityIntToDescription[random.randint(0, 9)]+randomComment[random.randint(0, 6)])
-
+print(qualityIntToDescription[random.randint(0, 9)]+randomComment[random.randint(0, 5)])
+word1 = input("Enter a word: ")
+word2 = input("Enter a second word: ")
+print(sounds_like(word1, word2))
 
