@@ -192,7 +192,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             String quote="\"";
             System.out.println("right before temp path " );
             String tempPath="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Tetragonula_carbonaria_%2814521993792%29.jpg/220px-Tetragonula_carbonaria_%2814521993792%29.jpg";
-            String tempURL=("{" + quote+ "url" + quote+":"+ quote+ mCurrentPhotoPath +quote+ "}");
+            String tempURL=("{" + quote+ "url" + quote+":"+ quote+ tempPath +quote+ "}");
 
             System.out.println(tempURL+" is the temp url");
             StringEntity se = new StringEntity(tempURL);
@@ -206,7 +206,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             httpPost.setHeader("Content-type", "application/json");
             httpPost.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
             httpPost.setEntity(se);
-            System.out.println("after set entity");
+
           //  System.out.println(reqEntity.toString());
             // Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
@@ -249,7 +249,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-//end cameraActivity
 
 
-}
+
+}//end cameraActivity

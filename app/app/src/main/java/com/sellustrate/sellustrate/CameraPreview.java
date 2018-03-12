@@ -1,17 +1,9 @@
 package com.sellustrate.sellustrate;
-
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.Button;
-
-
 import java.io.IOException;
-
-
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mSurfaceHolder;
@@ -22,25 +14,21 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public CameraPreview(Context context, Camera camera) {
         super(context);
         this.mCamera = camera;
-        System.out.println("ehwehhddhfsheaz");
         this.mSurfaceHolder = this.getHolder();
         this.mSurfaceHolder.addCallback(this);
         this.mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        System.out.println("end of camera constructor");
-
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-    System.out.println(surfaceHolder.isCreating());
+        System.out.println(surfaceHolder.isCreating());
         try {
             mCamera.setPreviewDisplay(surfaceHolder);
             System.out.println();
             mCamera.startPreview();
-            System.out.println("start preview in camPrev class is done");
-        } catch (IOException e) {
-            System.out.println("surfaceCreated failed:((((");
-            // left blank for now
+
+        }
+        catch (IOException e) {
         }
     }
 
@@ -54,7 +42,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format,
                                int width, int height) {
         mCamera.setDisplayOrientation(90);
-
         // start preview with new settings
         try {
             mCamera.setPreviewDisplay(surfaceHolder);
