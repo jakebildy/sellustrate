@@ -1,5 +1,7 @@
 package com.sellustrate.sellustrate;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -11,7 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,6 +39,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -50,13 +55,19 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
 
     public static final String subscriptionKey = "cfa2ac95fcf04101b79b839837876d16";
-    public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+    public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/tag";
+
     private Camera mCamera;
     private CameraPreview mCameraPreview;
     public static File pictureFile;
     public static String encodedString;
+    String mCurrentPhotoPath;
 
-    /** Called when the activity is first created. */
+    private ImageView mImageView;
+
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,37 +109,46 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }
         return camera;
     }
-    JSONObject json=new JSONObject();
 
-    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            System.out.println("picture was taken successfully :)))))");
+    JSONObject json = new JSONObject();
+    Camera.PictureCallback mPicture;
 
-            pictureFile = getOutputMediaFile();
+    {
+        mPicture = new Camera.PictureCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onPictureTaken(byte[] data, Camera camera) {
+                System.out.println("picture was taken successfully :)))))");
 
-            System.out.println(pictureFile.toString()+"<----- file strig");
-            if (pictureFile == null) {
-                return;
+                try {
+                    pictureFile = getOutputMediaFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (pictureFile == null) {
+                    return;
+                }
+
+
+                try {
+                    json.put("url", mCurrentPhotoPath);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    System.out.println("the json wasnt made correctly");
+                }
+
+                new HttpAsyncTask().execute(uriBase);
+                startActivity( new Intent(CameraActivity.this, LoadingActivity.class));
+
             }
-//
-
-            try {
-                json.put("url",pictureFile.toURI());
-            } catch (JSONException e) {
-                e.printStackTrace();
-                System.out.println("the json wasnt made correctly");
-            }
-
-            new HttpAsyncTask().execute(uriBase);
-
-
-        }
-    };
+        };
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private static File getOutputMediaFile() {
+    private File getOutputMediaFile() throws IOException {
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
@@ -140,63 +160,67 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-                .format(new Date());
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + "IMG_" + timeStamp + ".jpg");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        pictureFile = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
 
 
-        return mediaFile;
+        mCurrentPhotoPath = pictureFile.getAbsolutePath();
+        System.out.println("current photo path is " + mCurrentPhotoPath);
+        return pictureFile;
     }
 
-    public String post(String url){
-        InputStream inputStream = null;
+    public String post(String url) {
         String result = "";
-     //   System.out.println("the url isss " + url);
         try {
             HttpClient httpclient = new DefaultHttpClient();
+            // Prepare the URI for the REST API call.
             URIBuilder builder = new URIBuilder(url);
 
             builder.setParameter("visualFeatures", "Categories,Description,Color");
             builder.setParameter("language", "en");
 
-            // Prepare the URI for the REST API call.
-         //   URI uri = builder.build();
             // make POST request to the given URL
             HttpPost httpPost = new HttpPost(url);
 
-
             // set json to StringEntity
-            StringEntity se = new StringEntity(json.toString());
-           FileEntity reqEntity = new FileEntity(pictureFile, "application/json");
+            String quote="\"";
+            System.out.println("right before temp path " );
+            String tempPath="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Tetragonula_carbonaria_%2814521993792%29.jpg/220px-Tetragonula_carbonaria_%2814521993792%29.jpg";
+            String tempURL=("{" + quote+ "url" + quote+":"+ quote+ mCurrentPhotoPath +quote+ "}");
 
-            System.out.println("this is the string entity --->" +json.toString(2));
+            System.out.println(tempURL+" is the temp url");
+            StringEntity se = new StringEntity(tempURL);
+            //FileEntity reqEntity = new FileEntity(pictureFile, "application/json");
+
+            System.out.println(json.get("url")+ " is the url in the json");
             // set httpPost Entity
 
 
             // Set some headers to inform server about the type of the content
-            // httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
             httpPost.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
             httpPost.setEntity(se);
+            System.out.println("after set entity");
+          //  System.out.println(reqEntity.toString());
             // Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
-
 
             // receive response as inputStream
             HttpEntity entity = httpResponse.getEntity();
 
-            // convert inputstream to string
-             if(entity != null) {
-                 String jsonString = EntityUtils.toString(entity);
-                 JSONObject json = new JSONObject(jsonString);
-                 System.out.println("REST Response:\n");
-                 System.out.println(json.toString(2));
-             }
-               else
-                 result = "Did not work!";
-
+            if (entity != null) {
+                String jsonString = EntityUtils.toString(entity);
+                JSONObject json = new JSONObject(jsonString);
+                System.out.println("REST Response:\n");
+                System.out.println(json.toString(2));
+            } else
+                result = "Did not work, result is null:(";
 
 
         } catch (Exception e) {
@@ -205,12 +229,10 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
         }
         System.out.println(result);
-        System.out.println("HELLOOOOOOOOOOO");
         // return result
         return result;
 
     }
-
 
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
@@ -219,6 +241,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
             return post(urls[0]);
         }
+
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
