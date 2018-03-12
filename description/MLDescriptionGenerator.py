@@ -1,4 +1,5 @@
 from collections import Counter
+import networkx as nx
 
 fileID = open("descriptions.txt", "r")
 
@@ -28,7 +29,17 @@ def generate_descriptions(desc):
     desc_array = desc.lower().split(",")
     response = get_word_commonality_total(desc_array)
     print(get_word_commonality(desc_array, 1))
+
+    print(count_ratio(get_word_commonality(desc_array, 1), get_word_commonality_total(desc_array)))
+
     return response
 
 
+def count_ratio(countsSmol, counts):
+        return len(counts)/len(countsSmol)
+
+
 print(generate_descriptions(descriptions))
+
+
+
