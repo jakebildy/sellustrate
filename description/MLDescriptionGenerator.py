@@ -3,15 +3,18 @@ import random
 import networkx as nx
 from nltk.corpus import wordnet
 from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.corpus import stopwords
 
 fileID = open("descriptions.txt", "r")
 
 descriptions = fileID.read()
 
 
-
 def clean_up_sentence(sentence):
-    return sentence.replace('"', "").replace("\n", "").replace(".", "").replace(",", "").replace("  ", " ")
+    sentence = sentence.replace('"', "").replace("\n", "").replace(".", "").replace(",", "").replace("  ", " ")
+    for i in range(len(stopwords.words('english'))):
+        sentence = sentence.replace(" "+stopwords.words('english')[i]+" ", " ")
+    return sentence
 
 
 def get_word_commonality_total(desc_array):
@@ -117,7 +120,6 @@ randomComment = {
     }
 
 
-print(generate_descriptions(descriptions))
 print(sentence_from_verb(generate_descriptions(descriptions)))
 print(qualityIntToDescription[random.randint(0, 9)]+randomComment[random.randint(0, 5)])
 word1 = input("Enter a word: ")
