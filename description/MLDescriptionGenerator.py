@@ -6,11 +6,13 @@ from nltk.corpus import wordnet
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import nltk
+import json
 
 fileID = open("descriptions.txt", "r")
 
 descriptions = fileID.read()
 posTokens = []
+
 
 def pos_tokens(sentence):
     tokens = word_tokenize(sentence)  # Generate list of tokens
@@ -24,6 +26,7 @@ def pos_tokens(sentence):
 
     tagged = nltk.pos_tag(tokens)
     return tagged
+
 
 def clean_up_sentence(sentence):
     sentence = sentence.replace('"', "").replace("\n", "").replace(".", "").replace(",", "").replace("  ", " ").\
@@ -179,3 +182,10 @@ print(qualityIntToDescription[random.randint(0, 9)]+randomComment[random.randint
 #word2 = input("Enter a second word: ")
 #print(sounds_like(word1, word2))
 
+
+def run():
+
+    jsonObject = {'description': sentence_from_verb(generate_descriptions(descriptions))+qualityIntToDescription[
+        random.randint(0, 9)] + randomComment[random.randint(0, 5)]}
+
+    return json.dumps(jsonObject)
