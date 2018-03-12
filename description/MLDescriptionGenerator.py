@@ -27,7 +27,7 @@ def pos_tokens(sentence):
     return tagged
 
 def clean_up_sentence(sentence):
-    sentence = sentence.replace('"', "").replace("\n", "").replace(".", "").replace(",", "").replace("  ", " ")
+    sentence = sentence.replace('"', "").replace("\n", "").replace(".", "").replace(",", "").replace("  ", " ").replace("find","").replace("sell","").replace("buy","")
 
     for i in range(len(stopwords.words('english'))):
         sentence = sentence.replace(" "+stopwords.words('english')[i]+" ", " ")
@@ -84,7 +84,8 @@ def sentence_from_verb(counts):
 
     gen_desc = ""
 
-    for key in counts.most_common(4):
+    for i in range(6):
+        key = counts.most_common(i+1)[i]
         keyWord = key[0]
         try:
             forms = set()
@@ -99,10 +100,19 @@ def sentence_from_verb(counts):
                             print(posTokens[0][i][1])
                             if posTokens[0][i][1].startswith('NNS') and word not in gen_desc:
                                gen_desc = "Looking for " + word + "? ".join(gen_desc)
-                            if posTokens[0][i][1].startswith('NN') and "may be just" not in gen_desc:
-                                gen_desc += "This " + word + " may be just what you're looking for. "
-                            if posTokens[0][i][1].startswith('JJ') and word not in gen_desc :
-                                gen_desc = "Passionate about everything " + word + "? "
+                            if posTokens[0][i][1].startswith('NN'):
+                                if (word.endswith('ist') or word.endswith('er')) and "to become" not in gen_desc:
+                                    gen_desc += "Wanting to become a " + word + "? "
+                                elif "may be" not in gen_desc and word not in gen_desc:
+                                    gen_desc += "This " + word + " may be just what you're looking for. "
+
+                            if posTokens[0][i][1].startswith('JJ') and word not in gen_desc:
+                                if word.endswith('ist') or word.endswith('er'):
+                                    gen_desc += "Looking at becoming a " + word + "? "
+                                elif "Passionate" in gen_desc :
+                                    gen_desc += "Interested in everything " + word + "? "
+                                else:
+                                    gen_desc += "Passionate about everything " + word + "? "
 
         except AttributeError:
             {}
@@ -153,7 +163,7 @@ randomComment = {
 
 print(sentence_from_verb(generate_descriptions(descriptions)))
 print(qualityIntToDescription[random.randint(0, 9)]+randomComment[random.randint(0, 5)])
-word1 = input("Enter a word: ")
-word2 = input("Enter a second word: ")
-print(sounds_like(word1, word2))
+#word1 = input("Enter a word: ")
+#word2 = input("Enter a second word: ")
+#print(sounds_like(word1, word2))
 
