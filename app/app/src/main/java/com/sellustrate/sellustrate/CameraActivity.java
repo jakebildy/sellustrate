@@ -111,10 +111,29 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             public void onClick(View v) {
                 mCamera.takePicture(null, null, mPicture);
 
+        final Animation fadeOut = new AlphaAnimation(1.0f,0.0f);
+        fadeOut.setDuration(200);
+        fadeOut.setFillAfter(true);
+        fadeOut.setFillEnabled(true);
 
+        final Animation fadeIn = new AlphaAnimation(0.0f,1.0f);
+        fadeIn.setDuration(200);
+        fadeIn.setFillAfter(true);
+        fadeIn.setFillEnabled(true);
+
+        final Button captureButton = (Button) findViewById(R.id.button_capture);
+        final Button uploadButton = (Button) findViewById(R.id.finishButton);
+        captureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCamera.takePicture(null, null, mPicture);
+                captureButton.startAnimation(fadeOut);
+                uploadButton.startAnimation(fadeIn);
+                uploadButton.setVisibility(View.VISIBLE);
             }
         });
     }//end onCreate
+
 
     @Override
     public void onClick(View view) {
