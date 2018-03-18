@@ -17,7 +17,6 @@ import sys
 import datetime
 from optparse import OptionParser
 
-sys.path.insert(0, '%s/../' % os.path.dirname(__file__))
 
 from common import dump
 
@@ -28,7 +27,7 @@ from ebaysdk.trading import Connection as Trading
 
 
 def init_options():
-    usage = "usage: %prog [options]"
+    usage = "usage: %prog -y"
     parser = OptionParser(usage=usage)
 
     parser.add_option("-d", "--debug",
@@ -103,7 +102,7 @@ def verifyAddItem(opts):
     """
 
     try:
-        api = Trading(debug=opts.debug, config_file=opts.yaml, appid=opts.appid,
+        api = Trading(domain='api.sandbox.ebay.com',debug=opts.debug, config_file=opts.yaml, appid=opts.appid,
                       certid=opts.certid, devid=opts.devid, warnings=False)
 
         myitem = {
@@ -120,7 +119,7 @@ def verifyAddItem(opts):
                 "ListingDuration": "Days_7",
                 "ListingType": "Chinese",
                 "PaymentMethods": "PayPal",
-                "PayPalEmailAddress": "tkeefdddder@gmail.com",
+                "PayPalEmailAddress": "vmishrar@usc.edu",
                 "PictureDetails": {"PictureURL": "http://i1.sandbox.ebayimg.com/03/i/00/30/07/20_1.JPG?set_id=8800005007"},
                 "PostalCode": "95125",
                 "Quantity": "1",
@@ -142,8 +141,14 @@ def verifyAddItem(opts):
                 "Site": "US"
             }
         }
-
-        api.execute('VerifyAddItem', myitem)
+                    
+        myitem = {
+                "ItemID":"110279526373"
+                }            
+                    
+        response = api.execute('VerifyAddItem', myitem)
+        response = api.execute('AddItem', myitem)
+        response = api.execute('GetItem', myitem)
         dump(api)
 
     except ConnectionError as e:
