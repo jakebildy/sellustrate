@@ -23,7 +23,7 @@
         android:layout_width="130dp"
         android:layout_height="133dp"
         android:layout_gravity="center"
-        android:background="@drawable/take_pic"
+        android:background="@drawable/capture_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/camera_preview"
         app:layout_constraintHorizontal_bias="0.501"
@@ -31,17 +31,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.895" />
 
+
     <Button
         android:id="@+id/finishButton"
-        android:layout_width="104dp"
-        android:layout_height="69dp"
+        android:layout_width="109dp"
+        android:layout_height="65dp"
         android:background="@drawable/submit"
         android:onClick="onClick"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/camera_preview"
         app:layout_constraintEnd_toStartOf="@+id/camera_preview"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toEndOf="@+id/camera_preview"
         app:layout_constraintTop_toBottomOf="@+id/camera_preview"
-        app:layout_constraintVertical_bias="0.883" />
+        app:layout_constraintVertical_bias="0.897" />
 
 </android.support.constraint.ConstraintLayout>

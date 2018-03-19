@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         //Intent thingy = new Intent(this, LoadingActivity.class);
-         // startActivity(thingy);
+        // startActivity(thingy);
 
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.button2);
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     //slides everything to the right
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public void slide()
@@ -115,19 +116,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button buttonNew = findViewById(R.id.buttonNewPic);
         ImageView user = findViewById(R.id.user);
         ImageView lock = findViewById(R.id.lock);
+        TranslateAnimation swipeRight;
+        TranslateAnimation iconRight;
 
-        TranslateAnimation swipeRight = new TranslateAnimation(0.0f,850.0f,0.0f,0.0f);
+        iconRight = new TranslateAnimation(0.0f, 900.0f, 0.0f, 0.0f);
+        iconRight.setDuration(1125);
+        iconRight.setFillAfter(true);
+        iconRight.setFillEnabled(true);
+
+        swipeRight = new TranslateAnimation(0.0f, 800.0f, 0.0f, 0.0f);
         swipeRight.setDuration(1000);
         swipeRight.setFillAfter(true);
         swipeRight.setFillEnabled(true);
+
 
         signIn.startAnimation(swipeRight);
         password.startAnimation(swipeRight);
         username.startAnimation(swipeRight);
         buttonOld.startAnimation(swipeRight);
         buttonNew.startAnimation(swipeRight);
-        user.startAnimation(swipeRight);
-        lock.startAnimation(swipeRight);
+        user.startAnimation(iconRight);
+        lock.startAnimation(iconRight);
         password.setEnabled(false);
         username.setEnabled(false);
         buttonOld.setEnabled(false);

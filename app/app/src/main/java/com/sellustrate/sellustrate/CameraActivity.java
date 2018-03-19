@@ -10,6 +10,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -105,12 +108,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mCameraPreview);
 
-        Button captureButton = (Button) findViewById(R.id.button_capture);
-        captureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCamera.takePicture(null, null, mPicture);
-
         final Animation fadeOut = new AlphaAnimation(1.0f,0.0f);
         fadeOut.setDuration(200);
         fadeOut.setFillAfter(true);
@@ -133,7 +130,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }//end onCreate
-
 
     @Override
     public void onClick(View view) {
