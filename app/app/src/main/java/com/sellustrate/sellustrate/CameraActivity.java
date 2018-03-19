@@ -120,6 +120,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
         final Button captureButton = (Button) findViewById(R.id.button_capture);
         final Button uploadButton = (Button) findViewById(R.id.finishButton);
+        final Button refreshButton = (Button) findViewById(R.id.refreshButton);
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,15 +128,24 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 captureButton.startAnimation(fadeOut);
                 uploadButton.startAnimation(fadeIn);
                 uploadButton.setVisibility(View.VISIBLE);
+                refreshButton.startAnimation(fadeIn);
+                refreshButton.setVisibility(View.VISIBLE);
             }
         });
     }//end onCreate
 
     @Override
     public void onClick(View view) {
-        new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
-        Intent i = new Intent(this, LoadingActivity.class);
-        startActivity(i);
+        if (view.getId() == R.id.finishButton) {
+            new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
+            Intent i = new Intent(this, LoadingActivity.class);
+            startActivity(i);
+        }
+        else
+        {
+            Intent i = new Intent(this, CameraActivity.class);
+            startActivity(i);
+        }
     }//end onClick
 
     private Camera getCameraInstance() {
