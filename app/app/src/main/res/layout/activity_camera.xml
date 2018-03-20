@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:text="take a picture of your item"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/camera_preview"

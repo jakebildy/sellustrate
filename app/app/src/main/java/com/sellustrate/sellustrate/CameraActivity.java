@@ -123,7 +123,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         final Button uploadButton = (Button) findViewById(R.id.finishButton);
         final Button refreshButton = (Button) findViewById(R.id.refreshButton);
 
-        final TextView bestGuess = (TextView) findViewById(R.id.textView);
+        final TextView bestGuess = (TextView) findViewById(R.id.bestGuess);
 
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,27 +136,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 refreshButton.setVisibility(View.VISIBLE);
                 bestGuess.setText("loading...");
 
-                Runnable doBestGuess = new Runnable() {
-                    @Override
-                    public void run() {
-
-                        //insert http get request to grab best guess from microsoft azure
-
-                        while (true)  {
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            if (bestGuess.getText() != "loading...")
-                                bestGuess.setText(bestGuess.getText()+".");
-                            else
-                                bestGuess.setText("loading");
-                        }
-                    }
-                };
-
-                doBestGuess.run();
+              
             }
         });
     }//end onCreate
