@@ -59,4 +59,25 @@
         app:layout_constraintTop_toBottomOf="@+id/camera_preview"
         app:layout_constraintVertical_bias="0.167" />
 
+    <TextView
+        android:id="@+id/bestGuess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="take a picture of your item"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/camera_preview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/camera_preview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
 </android.support.constraint.ConstraintLayout>

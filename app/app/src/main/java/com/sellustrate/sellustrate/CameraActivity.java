@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
@@ -121,6 +122,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         final Button captureButton = (Button) findViewById(R.id.button_capture);
         final Button uploadButton = (Button) findViewById(R.id.finishButton);
         final Button refreshButton = (Button) findViewById(R.id.refreshButton);
+
+        final TextView bestGuess = (TextView) findViewById(R.id.textView);
+
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +134,29 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 uploadButton.setVisibility(View.VISIBLE);
                 refreshButton.startAnimation(fadeIn);
                 refreshButton.setVisibility(View.VISIBLE);
+                bestGuess.setText("loading...");
+
+                Runnable doBestGuess = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        //insert http get request to grab best guess from microsoft azure
+
+                        while (true)  {
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (bestGuess.getText() != "loading...")
+                                bestGuess.setText(bestGuess.getText()+".");
+                            else
+                                bestGuess.setText("loading");
+                        }
+                    }
+                };
+
+                doBestGuess.run();
             }
         });
     }//end onCreate
