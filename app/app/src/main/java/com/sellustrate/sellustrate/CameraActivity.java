@@ -1,6 +1,7 @@
 package com.sellustrate.sellustrate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -253,7 +254,17 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(getBaseContext(), "Data sent!", Toast.LENGTH_LONG).show();
-            System.out.println(result);
+
+            if (result.equals("Access denied due to invalid subscription key. Make sure to provide a valid key for an active subscription."))
+            {
+                result = "401 Error!";
+                bestGuess.setTextColor(Color.RED);
+            }
+            else
+            {
+                bestGuess.setTextColor(Color.WHITE);
+            }
+
             bestGuess.setText(result);
         }
     }//end HttpAsyncTask
