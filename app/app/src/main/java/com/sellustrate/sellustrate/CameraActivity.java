@@ -97,6 +97,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         return mediaFile;
     }//end getOutputMediaFile
 
+
+    TextView bestGuess;
+
     /**
      * Called when the activity is first created.
      */
@@ -123,7 +126,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         final Button uploadButton = (Button) findViewById(R.id.finishButton);
         final Button refreshButton = (Button) findViewById(R.id.refreshButton);
 
-        final TextView bestGuess = (TextView) findViewById(R.id.bestGuess);
+         bestGuess = (TextView) findViewById(R.id.bestGuess);
 
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,15 +139,16 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 refreshButton.setVisibility(View.VISIBLE);
                 bestGuess.setText("loading...");
 
-              
+
             }
         });
     }//end onCreate
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.finishButton) {
+        if (view.getId() == R.id.button_capture) {
             new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
+
             Intent i = new Intent(this, LoadingActivity.class);
             startActivity(i);
         }
@@ -234,8 +238,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             Log.d("InputStream", errorMsg);
         }
         System.out.println(result);
-        return result;
+        return mTags.toString().split("\"")[5];
     }//end post
+
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
@@ -247,7 +252,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Data sent!", Toast.LENGTH_LONG).show();
+            System.out.println(result);
+            bestGuess.setText(result);
         }
     }//end HttpAsyncTask
 }//end cameraActivity
