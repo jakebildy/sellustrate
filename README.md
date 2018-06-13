@@ -3,12 +3,12 @@
 Sellustrate uses image recognition linked to the eBay API to identify items and generate an entire eBay listing, including the description, from a single photo. Originally developed in 36 hours for the Caltech hackathon (HackTech).
 
 
-# Technical Details
- **Frontend**: Java (Android Studio)
+# Technical Details 
+ **:iphone: Frontend**: Java (Android Studio)
 
- **Backend**: Python (Microsoft Azure), Javascript
+ **:lock: Backend**: Backend hosting is done through Microsoft Azure via Python, and the eBay listing is generated using JavaScript and previewed using as a WebApp
  
- # How it works
+ # How it works :rocket:
 The user only needs to take a picture of the item they wish to sell - the app does nearly all the rest!
 First, it sorts the image into one of eBay's merchandise categories, using image recognition with Microsoft Azure.
 Then, the user is prompted to select the quality of the item - this is done via a simplistic scrolling UI.
