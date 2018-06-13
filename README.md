@@ -6,7 +6,7 @@ Sellustrate uses image recognition linked to the eBay API to identify items and 
 # Technical Details 
  **:iphone: Frontend**: Java (Android Studio)
 
- **:lock: Backend**: Backend hosting is done through Microsoft Azure via Python, and the eBay listing is generated using JavaScript and previewed using as a WebApp
+ **:lock: Backend**: Backend hosting is done through Microsoft Azure via Python, and the eBay listing is generated using JavaScript and previewed using a WebApp
  
  # How it works :rocket:
 The user only needs to take a picture of the item they wish to sell - the app does nearly all the rest!
