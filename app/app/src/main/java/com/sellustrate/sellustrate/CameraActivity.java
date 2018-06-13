@@ -56,7 +56,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
             File pictureFile = getOutputMediaFile();
 
-            System.out.println(pictureFile.toString() + "<----- file strig");
+            System.out.println(pictureFile.toString() + "<----- file string");
             try {
                 byte[] encoded = new byte[0];
                 try {
@@ -147,7 +147,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.button_capture) {
+        if (view.getId() == R.id.finishButton) {
             new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/cognition");
 
             Intent i = new Intent(this, LoadingActivity.class);
