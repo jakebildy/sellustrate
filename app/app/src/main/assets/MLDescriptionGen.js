@@ -22,7 +22,7 @@ qualityIntToDescription = {
         "The product is quite well used, but still in an acceptable condition. Still works.",
     9:
         "The product is very heavily used, and no longer functions.",
-}
+};
 
 
 randomComment = {
@@ -38,7 +38,9 @@ randomComment = {
         " Definitely worth the price.",
     5:
         " Deals like this are hard to come by.",
-}
+};
+
+$("description").text("Insert generated description here");
 
 
 
