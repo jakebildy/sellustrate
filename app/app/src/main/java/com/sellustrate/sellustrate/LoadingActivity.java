@@ -1,5 +1,6 @@
 package com.sellustrate.sellustrate;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -223,9 +224,12 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if (view.getId() != R.id.button4) {
             deInitQuality();
-            setLoading(true);
+           // setLoading(true);
             create_JSON();
             new HttpAsyncTask().execute("http://sellustrate.azurewebsites.net/search");
+
+            Intent i = new Intent(this, EbayListingActivity.class);
+            startActivity(i);
         }
         else
         {
