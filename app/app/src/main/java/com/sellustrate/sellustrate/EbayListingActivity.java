@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -19,9 +20,12 @@ public class EbayListingActivity extends AppCompatActivity{
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        WebView webview = new WebView(this);
-
         super.onCreate(savedInstanceState);
+
+        WebView webview = new WebView(this);
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webview.setWebChromeClient(new WebChromeClient());
 
         setContentView(webview);
 

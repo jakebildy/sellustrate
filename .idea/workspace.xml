@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="654d2114-90c3-4eef-8cfb-75bd69564294" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/app/src/main/assets/Details.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/app/src/main/assets/Photos.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/app/src/main/assets/Pricing.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/app/src/main/assets/Shipping.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/app/src/main/assets/Title.js" />
-      <change beforePath="$PROJECT_DIR$/.idea/sellustrate.iml" afterPath="$PROJECT_DIR$/.idea/sellustrate.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/app/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/app/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/app/.gradle/4.1/fileHashes/fileHashes.lock" />
@@ -17,7 +11,7 @@
       <change beforePath="$PROJECT_DIR$/app/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/app/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change beforePath="$PROJECT_DIR$/app/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/app/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/app/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/app/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/assets/MLDescriptionGen.js" afterPath="$PROJECT_DIR$/app/app/src/main/assets/MLDescriptionGen.js" />
+      <change beforePath="$PROJECT_DIR$/app/app/src/main/assets/Title.js" afterPath="$PROJECT_DIR$/app/app/src/main/assets/Title.js" />
       <change beforePath="$PROJECT_DIR$/app/app/src/main/assets/listing.html" afterPath="$PROJECT_DIR$/app/app/src/main/assets/listing.html" />
       <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/sellustrate/sellustrate/EbayListingActivity.java" afterPath="$PROJECT_DIR$/app/app/src/main/java/com/sellustrate/sellustrate/EbayListingActivity.java" />
     </list>
@@ -30,21 +24,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="MLDescriptionGen.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MLDescriptionGen.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/MLDescriptionGen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
+            <state relative-caret-position="364">
               <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="listing.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="listing.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/listing.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="102" lean-forward="false" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+            <state relative-caret-position="567">
+              <caret line="27" column="2" lean-forward="false" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -53,8 +47,8 @@
       <file leaf-file-name="Title.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/Title.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+            <state relative-caret-position="21">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -119,8 +113,8 @@
         <option value="$PROJECT_DIR$/app/app/src/main/assets/Pricing.js" />
         <option value="$PROJECT_DIR$/app/app/src/main/assets/Details.js" />
         <option value="$PROJECT_DIR$/app/app/src/main/assets/Photos.js" />
-        <option value="$PROJECT_DIR$/app/app/src/main/assets/Title.js" />
         <option value="$PROJECT_DIR$/app/app/src/main/assets/listing.html" />
+        <option value="$PROJECT_DIR$/app/app/src/main/assets/Title.js" />
       </list>
     </option>
   </component>
@@ -323,12 +317,12 @@
       <option name="presentableId" value="Default" />
       <updated>1521407860422</updated>
       <workItem from="1528855428425" duration="2169000" />
-      <workItem from="1529168184593" duration="4062000" />
+      <workItem from="1529168184593" duration="5177000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6231000" />
+    <option name="totallyTimeSpent" value="7346000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="0" />
@@ -481,26 +475,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/MLDescriptionGen.js">
+    <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/listing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+        <state relative-caret-position="567">
+          <caret line="27" column="2" lean-forward="false" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/Title.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+        <state relative-caret-position="21">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/listing.html">
+    <entry file="file://$PROJECT_DIR$/app/app/src/main/assets/MLDescriptionGen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="102" lean-forward="false" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+        <state relative-caret-position="364">
+          <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
           <folding />
         </state>
       </provider>

@@ -1,5 +1,1 @@
-$(document).ready(function() {
-
-$("title").text("INSERT TITLE");
-
-});
+$("product_title").text("title of thing you selling");
